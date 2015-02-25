@@ -16,8 +16,8 @@
 			noteModal.html(template);
 			noteModal.find('.modal').modal('show').one('shown.bs.modal', function (e) {
 				$(this).find('.save').one('click', function(){
-					var noteId = noteModal.find('.modal').data('id');
-					var params = noteModal.find('form').serializeArray();
+					var noteId = noteModal.find('.modal').data('id'),
+						params = noteModal.find('form').serializeArray();
 					
 					model.set({
 						title: params[0].value,
@@ -25,8 +25,6 @@
 					}).save();
 					App.Collection.Notes.add(model);
 					noteModal.find('.modal').modal('hide');
-					//debugger;
-					//_this.render();
 				});
 			});
 		},
@@ -37,10 +35,8 @@
 		},
 		editNote: function(event){
 			event.preventDefault();
-			var noteId = $(event.target).parents('li').data('id');
-			//App.Router.navigate('edit/' + noteId, {trigger:true});
-
-			var model = this.collection.findWhere({'_id': noteId});
+			var noteId = $(event.target).parents('li').data('id'),
+				model = this.collection.findWhere({'_id': noteId});
 			this.displayModal(model);
 		},
 		removeNote: function(event){
