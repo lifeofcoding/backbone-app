@@ -24,9 +24,6 @@
 			});
 		},
 		index: function(){
-			if($('#viewport').length === 0){
-				$('body').append('<div id="viewport" class="container"></div>');
-			}
 			var viewportModel = new App.Model.Index({pageTitle: 'Welcome to my notes App!'});
 			var viewport = new App.View.Index({model: viewportModel});
 
@@ -39,9 +36,6 @@
 			});
 		},
 		displayNotes: function(){
-			if($('#notes').length === 0){
-				$('body').append('<div class="container" id="notes"></div>');
-			}
 			var notesView;
 			if(typeof App.Collection.Notes === 'function'){
 				App.Collection.Notes = new App.Collection.Notes();

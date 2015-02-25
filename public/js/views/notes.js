@@ -56,6 +56,11 @@
 		render: function(){
 			this.$el.html(this.template({collection: this.collection}));
 			return this;
+		},
+		remove: function() {
+			this.$el.empty().off(); /* off to unbind the events */
+			this.stopListening();
+			return this;
 		}
 	});
 	App.View.Notes = Notes;
