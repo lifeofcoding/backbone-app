@@ -25,38 +25,28 @@
 		},
 		index: function(){
 			var viewportModel = new App.Model.Index({pageTitle: 'Welcome to my notes App!'});
-			var viewport = new App.View.Index({model: viewportModel});
-
-			viewport.render();
-
-			this.on('route', function(route, params) {
-				if(route === 'displayNotes'){
-					viewport.remove();
-				}
-			});
+			var viewport = this.loadView(new App.View.Index({model: viewportModel}));
 		},
 		displayNotes: function(){
-			var notesView;
+			var notesView, _this = this;
 			if(typeof App.Collection.Notes === 'function'){
 				App.Collection.Notes = new App.Collection.Notes();
 			}
 
 			App.Collection.Notes.fetch({
 		        success: function (collection) {
-		            notesView = new App.View.Notes({collection: App.Collection.Notes});
-					notesView.render();
+		            notesView = _this.loadView(new App.View.Notes({collection: App.Collection.Notes}));
 		        }
 		    });
-			this.on('route', function(route, params) {
-				if(route === 'index'){
-					notesView.remove();
-				}
-			});
 		},
 		editNote: function(noteId){
 			var model = App.Collection.Notes.get(noteId);
-			var editView = new App.View.EditNote({model:model});
-			editView.render();
+			var editView = this.loadView(new App.View.EditNote({model:model}));
+		},
+		loadView : function(view) {
+			this.view && this.view.remove();
+			this.view = view;
+			this.view.render();
 		}
 	});
 	App.Router = new Router;

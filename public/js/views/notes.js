@@ -44,7 +44,6 @@
 			var con = confirm('Are you sure you want to delete this note?');
 			if (con == true) {
 				var noteId = $(event.target).parents('li').data('id');
-				debugger;
 				this.collection.findWhere({'_id': noteId}).destroy();
 			}
 		},
