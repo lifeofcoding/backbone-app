@@ -1,0 +1,21 @@
+body{
+	
+}
+.edit, .remove{
+	margin: 3px;
+	text-decoration: none;
+}
+.edit:hover, .remove:hover{
+	text-decoration: none;
+}
+.list-group{
+	margin-top: 50px;
+}
+.new{
+	font-size: 20px;
+}
+.new i{
+	margin-top: 2px;
+	margin-left: 3px;
+	float: right;
+}

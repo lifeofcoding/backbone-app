@@ -1,0 +1,114 @@
+<html>
+<head>
+	<title>Backbone App Example</title>
+	<link rel="stylesheet" type="text/css" href="/css/app.css">
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="navbar"></div>
+	<div id="viewport" class="container"></div>
+	<div class="container" id="notes"></div>
+	
+	<script id="index-tpl">
+	<div class="page-header">
+	  <h1><%= model.get('pageTitle') %></h1>
+	</div>
+		<section>Like to make notes? look no further...</section><br><br>
+	</script>
+	
+	<script id="notes-tpl">
+		<div class="well">
+			<span class="pull-right"><a href="#" class="btn btn-default new" data-bypass="true">New Note <i class="glyphicon glyphicon-plus-sign"></i></a></span>
+			<ul class="list-group">
+				<%	if(collection.length === 0){ %>
+						Nothing to see here!
+				<%
+					}else{
+						collection.each(function(note){
+				%>
+							<li data-id="<%= note.get('_id') %>" class="list-group-item"><%= note.get('title') %> <a href="#" class="remove pull-right glyphicon glyphicon-remove" data-bypass="true"></a> <a href="#" data-bypass="true" class="edit pull-right glyphicon glyphicon-edit"></a></li>
+				<%
+						});
+					}
+				%>
+			</ul>
+		</div>
+	</script>
+				
+	<div class="note-modal"></div>
+	<script id="note-modal-tpl">			
+		<div class="modal fade" id="myModal" data-id="<%= model.get('_id') !== '' ? model.get('_id') : '' %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel"><%= model.get('title') !== '' ? 'Edit' : 'Create' %> Note</h4>
+		      </div>
+		      <div class="modal-body">
+				<form>
+				  <div class="form-group">
+				    <label for="noteTitle">Title</label>
+				    <input type="text" class="form-control" id="noteTitle" name="noteTitle" placeholder="Enter Note Title" value="<%= model.get('title') %>">
+				  </div>
+				  <div class="form-group">
+				    <label for="noteContent">Content</label>
+				    <textarea class="form-control" id="noteContent" name="noteContent"><%= model.get('text') %></textarea>
+				  </div>
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary save">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</script>
+	
+	<script id="navbar-tpl">
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Jimmy's Epic Notes App!</a>
+		    </div>
+
+
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+		        <li><a href="notes">Notes</a></li>
+		      </ul>
+<!--
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#">Link</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+		          <ul class="dropdown-menu" role="menu">
+		            <li><a href="#">Action</a></li>
+		            <li><a href="#">Another action</a></li>
+		            <li><a href="#">Something else here</a></li>
+		            <li class="divider"></li>
+		            <li><a href="#">Separated link</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+					-->
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</script>
+				
+	<script type="text/javascript" src="/js/app.js"></script>
+	<script type="text/javascript" src="/js/models/index.js"></script>
+	<script type="text/javascript" src="/js/models/note.js"></script>
+	<script type="text/javascript" src="/js/collections/notes.js"></script>
+	<script type="text/javascript" src="/js/views/index.js"></script>
+	<script type="text/javascript" src="/js/views/navbar.js"></script>
+	<script type="text/javascript" src="/js/views/notes.js"></script>
+	<script type="text/javascript" src="/js/router.js"></script>
+</body>
+</html>
